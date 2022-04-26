@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>BETTER HITL</title>
+</head>
+<body>
+<div class="container-fluid">
+    <h1> Mark Relevant Keywords for {{ req_id }} </h1>
+    <hr/>
+    <form method="post">
+        {% for term, label in rows %}
+            <label class="checkbox-inline">
+                 <input type="checkbox" name="{{term}}" {{label|safe}}> {{ term }} &nbsp;&nbsp;&nbsp;&nbsp;
+            </label>
+        {% endfor %}
+        <br/>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <!--<a href="{{ url_for("query", req_id=req_id) }}">-->
+        <button type="button" class="btn btn-secondary">Back</button>
+        <!--</a>-->
+    </form>
+</div>
+</body>
+</html>

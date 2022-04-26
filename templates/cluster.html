@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>BETTER HITL</title>
+</head>
+<body>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% for topics, snippets in topic %}
+        {% set outer_loop = loop %}
+        <div class="container-fluid">
+            <h3><b> Cluster label {{loop.index}}: </b>{{topics}}</h3>
+            <label for="fname">New label:</label>
+            <input type="text" id="fname" name="fname">
+            <button type="button" id="submit" value={{loop.index}}>Submit</button><br>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="task_{{sent_id}}" {{task_label|safe}}> Task
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" name="req_{{sent_id}}" {{req_label|safe}}> Request
+            </label>
+            <hr/>
+            <form method="post">
+            <div class="snippets">
+                {% for doc_id, snippet in snippets %}
+                    {% if 4 > loop.index%}
+                        <p> {{ snippet }}</p>
+                    {% endif %}
+                {% endfor %}
+                <br/>
+            </div>    
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>

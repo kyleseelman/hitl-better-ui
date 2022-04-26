@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+    {% block content %}
+        <div class="container-fluid">
+        <h1> BETTER UI Annotation</h1>
+        </div>
+        <body>
+        Select task: 
+        <select name= tasks id="tasks" method="POST" action="/">
+            {% for task_title, value in title%}
+            <option value= "{{value}}" id="{{loop.index}}" data-sync="{{value}}" SELECTED>{{task_title}}</option>"
+            {% endfor %}
+        </select>
+        <br></br>
+        
+        Select request: 
+        <select name= requests id="requests" method="POST" action="/">
+            {% for req_id, task_title, req_text, value in reqs%}
+            <option value= "{{value}}" id ="{{req_id}}" SELECTED>{{req_text}}</option>"
+            {% endfor %}
+        </select>
+
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <div class="left" id="place_for_info">
+     
+            <h1><span id="req_id">Req_ID</span></h1>
+            <p id="title"><b>Task title:</b></p>
+            <p id="statement"><b>Task statement:</b> </p>
+            <p id="narrative"><b>Task narrative:</b> </p>
+            <p id="scope"><b>In scope:</b> </p>
+            <p id="out_scope"><b>Not in scope:</b> </p>
+            <p id="request"><b>Request:</b> </p>
+
+            <!--<a onclick="myFunction()" href="#keywordModal" data-toggle="modal" data-target="#keywordModal" id="'keywords">Edit Keywords</a>
+            -->
+            <!--<a id="terms" href="{{ url_for('terms', req_id=req_id) }}">Edit Keywords</a>-->
+            <button class="keyword">Edit Keywords</button>
+            <hr/>
+
+        </div>
+
+        <div class="right" id="place_for_box">
+
+            <label class="checkbox-inline">
+                <input type="checkbox" id="tm" name=test> Topic Modeling &nbsp;
+                <input type="checkbox" id="al" name=test> Active Learning
+            </label>
+        </div>
+        <div class="scroll" id="place_for_documents">
+            {% for doc_id, snippet in snippets %}
+            <a id = {{doc_id}}, href="{{ url_for('ui', req_id=req_id, doc_id=doc_id) }}">Document {{ doc_id }}</a><br/> 
+                {{ snippet }}<hr/>
+            {% endfor %}
+
+        </div>
+
+
+
+
+
+<!--
+<div class="right" id="place_for_documents"></div>
+
+
+<h1>IR-T1-r1</h1>
+<p><b>Task title:</b> Dust Storm in Zabol, Iran 2018 </p>
+<p><b>Task statement:</b> What were the effects and official responses to the massive dust storms that hit the southern province of Sistan and Baluchistan and the city of Zabol in 2018?</p>
+<p><b>Task narrative:</b> Massive dust storms have hit different parts of Iran...</p>
+<p><b>In scope:</b> Documents may be relevant if they focus on the south part of Iran. </p>
+<p><b>Not in scope:</b> Other cities, or other regions of Iran are not relevant.</p>
+<p><b>Request:</b> How many people were hospitalized because of the dust storm?</p>
+
+
+<div class="right">
+    {% for doc_id, snippet in snippets %}
+        <a href="{{ url_for('query') }}">Document {{ doc_id }}</a><br/>
+        <p>{{snippet}}</p>
+    {% endfor %}    
+</div>
+-->
+
+
+<!-- 
+        {% include "query.html" %}
+
+
+<div class="container-fluid">
+    <h1> Refine Search Results </h1>
+    {% for req_id, task_title, req_text, value in reqs%}
+        <hr/>
+        <a href="{{ url_for('query', req_id=req_id) }}">{{ req_id }}</a><br/>
+        Task: {{ task_title }} <br/>
+        Request: {{ req_text }} <br/>
+    {% endfor %}
+</div>
+-->
+{% endblock %}
+

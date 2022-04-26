@@ -1,0 +1,62 @@
+IR-T1-r1
+How many people were hospitalized because of the dust storm that hit the southern province of Sistan, Baluchistan, and Zabol in 2018?
+
+IR-T1-r2
+How did government officials respond following the dust storms that hit the southern province of Sistan and Baluchistan and the city of Zabol in 2018?
+
+IR-T2-r1
+Did Japan receive any outside aid or assistance during the earthquake in 2011?
+
+IR-T2-r2
+Which areas in Japan were most affected by the earthquake in 2011?
+
+IR-T3-r1
+When did the earthquake in Italy of August 2016 happen?
+
+IR-T3-r2
+What agencies and organizations responded following the quake in Italy during August 2016?
+
+IR-T4-r1
+Who are the refugees fleeing from Myanmar in the wake of violence?
+
+IR-T4-r2
+How many refugees have left Myanmar?
+
+IR-T5-r1
+What are the areas of flooding in Peru during 2017?
+only 1 relevant article
+
+IR-T5-r2
+How many people are affected by the floods in Peru during 2017?
+
+IR-T6-r1
+What countries are seeing outbreaks of dengue in Asia after 2015?
+
+IR-T6-r2
+What is dengue? How is it transmitted? Is it treatable? Consider these questions in the context of the Dengue outbreaks in Asia after 2015.
+
+IR-T7-r1
+Were any bridges damaged in the flood of western Iran during 2019?
+only 1 relevant article
+
+IR-T7-r2
+What kind of aids were delivered to people during the flood of western Iran in 2019?
+
+IR-T8-r1
+How many people died in the Haiti earthquake of 2010?
+
+IR-T8-r2
+Who provided aid to Haiti during the earthquake of 2010?
+
+IR-T9-r1
+Which countries or regions did the refugees in Calais come from?
+
+IR-T9-r2
+What was the Calais refugees' ultimate destination?
+
+IR-T10-r1
+Which countries had cases of Zika?
+
+IR-T10-r2
+In what non-pharmaceutical ways do countries fight the spread of Zika?
+

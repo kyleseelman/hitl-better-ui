@@ -1,0 +1,84 @@
+.container-fluid {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 48em;
+}
+
+.container-small {
+    margin-left: 50;
+    margin-right: 50;
+    max-width: 24em;
+}
+
+.container-medium {
+    margin-left: 100;
+    margin-right: 20;
+    max-width: 48em
+}
+
+.small {
+    height: 40px;
+    overflow:hidden;
+}
+.big {
+
+}
+
+.left{ float: left; width: 33.333%; margin-left: 5px;}
+.right{ float: right; width: 33.333%; margin-right: 0; margin-left: 400}
+.middle{ display: inline-block; width: 33.333%; }
+
+.btn-plain {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    vertical-align: baseline;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 0px solid #ddd;
+}
+  
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+/* width */        
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+  
+.scroll {
+    float: right;
+    display: block;
+    border: 5px solid rgb(0, 0, 0);
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-right: 50px;
+    width: 50%;
+    height: 700px;
+    overflow-y: scroll;
+}
+
+button.keyword { background:none; border:none; color: blue;}

@@ -12,6 +12,9 @@ from jinja2 import Environment
 
 import flask
 from flask import Flask, render_template, request
+
+from concrete.access.ttypes import FetchRequest
+from concrete.util.access_wrapper import HTTPFetchCommunicationClientWrapper
 #from testing_ui.active_learning import active
 app = Flask(__name__)
 jinja_env = Environment(extensions=['jinja2.ext.loopcontrols'])
@@ -27,13 +30,13 @@ nlp = spacy.load(spacy_model_name)
 
 MAX_DOCS = 50  # number of docs for annotation
 # TASK_FILENAME = 'data/ir-hitl-performer-tasks.json'
-TASK_FILENAME = 'ir-p2-hitl-performer-tasks.json'
-ENTITY_FILENAME_TEMPLATE = 'data/{}/entity.txt'
-TERM_FILENAME_TEMPLATE = 'data/{}/terms.tsv'
-LABEL_FILENAME_TEMPLATE = 'data/{}/doc_{}.tsv'
+TASK_FILENAME = '../demo-data/dry-run-topics.final.json'
+ENTITY_FILENAME_TEMPLATE = '../demo-data/{}/entity.txt'
+TERM_FILENAME_TEMPLATE = '../demo-data/{}/terms.tsv'
+LABEL_FILENAME_TEMPLATE = '../demo-data/{}/doc_{}.tsv'
 #RESULTS_JSON_FILENAME = 'data/outputs_to_IE_fullHITL.json'
-RESULTS_JSON_FILENAME = 'data/full-hitl-retrievals-outputToIE.json'
-DATA_DIR = 'data'
+RESULTS_JSON_FILENAME = '../demo-data/dry-run-topics.final.json'
+DATA_DIR = '../demo-data'
 SNIPPET_LEN = 5  # number of sentences in snippet
 
 #UNLABELED_ENT_TEMPLATE = """
@@ -50,22 +53,35 @@ LABELED_ENT_TEMPLATE = """
 <button name="ent" type="button" class="btn btn-outline-dark btn-plain active" value="{text}">{text}</button>
 """
 
+def get_docs(doc_ids):
+    uri = 'http://18.190.158.220/fetch_http_endpoint/'
+    with HTTPFetchCommunicationClientWrapper(uri) as client:
+        fetch_request = FetchRequest(communicationIds=doc_ids)
+        fetch_result = client.fetch(fetch_request)
+        
+        return fetch_result
+       
+
 
 def process_data():
+    print("PROCESSING DATA")
     with open(RESULTS_JSON_FILENAME, 'r') as f:
         results = json.load(f)
     for task in results:
-        for req in task['taskRequests']:
-            req_id = req['reqQueryID']
+        for req in task['requests']:
+            req_id = req['req-num']
             req_dir = os.path.join(DATA_DIR, req_id)
             if not os.path.exists(req_dir):
+                print("Doesn't make it here correct?")
                 os.mkdir(req_dir)
-                for doc_id, doc in enumerate(req['relevanceDocuments'][:MAX_DOCS]):
+                print(req['req-docs'])
+                fetch_result = get_docs(req['req-docs'])
+                for doc_id, doc in enumerate(fetch_result.communications):
                     label_filename = LABEL_FILENAME_TEMPLATE.format(req_id, doc_id)
                     with open(label_filename, 'w') as f:
                         print('\t'.join(['QueryID', 'TaskLabel', 'RequestLabel', 'DocID', 'DocText']), file=f)
                         sent_id = 0
-                        doc_text = doc['docText']
+                        doc_text = doc.text #doc['docText']
                         doc_text = doc_text.replace(r'\n', ' ')
                         doc_text = doc_text.replace(r'\t', ' ')
                         doc_text = doc_text.replace(r'\r', ' ')
@@ -78,7 +94,7 @@ def process_data():
                 with open(term_filename, 'w') as f:
                     terms = set()
                     print('\t'.join(['Term', 'Relevance']), file=f)
-                    for term in req['reqQueryText'].strip().split():
+                    for term in req['req-text'].strip().split():
                         if term not in terms:
                             print('\t'.join([term, 'checked']), file=f)
                             terms.add(term)
@@ -151,7 +167,9 @@ def requests():
     reqs = [(req['req-num'], req['req-text'], req['req-num'][:len(req['req-num'])-2]) for task in tasks for req in task['requests']]
     reqs = [item for item in reqs if item[2]==value]
     print(reqs)
-    return flask.jsonify(req_id=[item[0] for item in reqs], req_text=[item[1] for item in reqs], value=[item[2] for item in reqs])
+    print(len(reqs))
+    length_req = len(reqs)
+    return flask.jsonify(req_id=[item[0] for item in reqs], req_text=[item[1] for item in reqs], value=[item[2] for item in reqs], len_reqs=length_req)
 
 #@app.route('/request', methods=['GET', 'POST'])
 #def request():
@@ -174,6 +192,9 @@ def requests():
 def info():
     print("In info")
     req_id = request.args.get('req_id')
+    dir = '../demo-data/{}'.format(req_id)
+    MAX_DOCS = len([name for name in os.listdir(dir) if os.path.isfile(os.path.join(dir, name))])
+    #print(MAX_DOCS)
     with open(TASK_FILENAME, 'r') as f:
         tasks = json.load(f)
     for task in tasks:
@@ -183,7 +204,7 @@ def info():
                 if req['req-num'] == req_id:
                     req_text = req['req-text']
             snippets = []
-            for doc_id in range(MAX_DOCS):
+            for doc_id in range(MAX_DOCS-1):
                 snippet = ''
                 label_filename = LABEL_FILENAME_TEMPLATE.format(req_id, doc_id)
                 with open(label_filename, 'r') as f:
@@ -262,6 +283,9 @@ def docu():
     flag = request.args.get('flag')
     al_flag = request.args.get('al_flag')
     print("HEREEEEE2")
+    dir = '../demo-data/{}'.format(req_id)
+    MAX_DOCS = len([name for name in os.listdir(dir) if os.path.isfile(os.path.join(dir, name))])
+    print(MAX_DOCS)
     #if request.is_ajax() and request.method == 'GET':
     print(req_id)
     # FROM HERE CALL THE TOPIC MODELING
@@ -308,7 +332,7 @@ def docu():
                         req_text = req['req-text']
                 snippets = []
                 if al_flag == '1': doc_numbers = active(req_id)
-                else: doc_numbers = list(range(MAX_DOCS))
+                else: doc_numbers = list(range(MAX_DOCS-1))
                 for doc_id in doc_numbers:
                     snippet = ''
                     label_filename = LABEL_FILENAME_TEMPLATE.format(req_id, doc_id)

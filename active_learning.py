@@ -2,6 +2,7 @@ import re
 import csv
 import numpy as np
 import pandas as pd
+import os
 
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -22,9 +23,12 @@ def active(req_id):
     li = []
     #req_id = 'IR-T1-r1'
 
+    dir = '../demo-data/{}'.format(req_id)
+    MAX_DOCS = len([name for name in os.listdir(dir) if os.path.isfile(os.path.join(dir, name))]) - 1
+
     # NEED TO FIX, EACH SENTENCE IN EACH DOCUMENT IS TREATED AS DIFFERENT DOCUMENT
-    for i in range(0,49):
-        df = pd.read_csv('data/{}/doc_{}.tsv'.format(req_id, i), sep='\t', index_col=None, header=0,quoting=csv.QUOTE_NONE)
+    for i in range(MAX_DOCS):
+        df = pd.read_csv('../demo-data/{}/doc_{}.tsv'.format(req_id, i), sep='\t', index_col=None, header=0,quoting=csv.QUOTE_NONE)
 
         # This should combine all the sentences from one document, into a single document
         np_data = np.asarray(df['DocText'])

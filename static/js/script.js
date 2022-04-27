@@ -29,7 +29,7 @@ $(function(){
         .done(function(data){
             $("#requests").html("");
             
-            for (i=0;i<2;i++){
+            for (i=0;i<data['len_reqs'];i++){
                 //$('#requests').append("<option SELECTED> hello</option");
                 $("#requests").append("<option value= " + data['value'][i] + " id=" + data['req_id'][i] + " SELECTED>"+data['req_text'][i]+ "</option>");
             }
@@ -166,6 +166,29 @@ $(function(){
         });
 
         //alert("testinggg");
+    });
+
+    $('#save_sub').click(function(){
+        var dnd = document.querySelector('#requests');
+        var r_id = dnd.options[dnd.selectedIndex].id;
+        if(document.getElementById('tm').checked) {
+            var flag = 1;
+        } else {
+            var flag = 0;
+        }
+
+        $.get("/docu", {req_id:r_id, flag:flag})
+        .done(function(data){
+            var snippets = data["snippets"];
+            //$("#snippets").append(snippets)
+            $("#place_for_documents").html("")
+            for (let i = 0; i < 50; i++){
+                $("#place_for_documents").append('<button id = '+snippets[i][0]+' class=snips>Document ' + snippets[i][0]+"</button><br></br>");
+                $("#place_for_documents").append(snippets[i][1] + "<hr>");
+                //$("#place_for_documents").append("<p>"+snippets[i]+"<p>");
+            }
+        });
+
     });
     //$(document).on('click', '.btn btn-secondary', function (){
     //    alert("test");

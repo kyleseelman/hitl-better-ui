@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>BETTER HITL</title>
+</head>
+<body>
+    <div class="container-fluid">
+        {% for doc_id, snippet in snippets %}
+            <a onclick="myFunction()" href="{{ url_for('ui', req_id=req_id, doc_id=doc_id) }}">Document {{ doc_id }}</a><br/>
+            
+            {{ snippet }}<hr/>
+        {% endfor %}
+    </div>
+    <script>
+
+        document.getElementById("0").onclick = function() {myFunction()};
+       /* Make ajax request to call the ui to get the annotation on click of document, not sure if this will work  */
+        function myFunction() {
+            document.getElementById("0").innerHTML = "YOU CLICKED ME!";
+
+            
+        }
+    </script>
+
+<!-- <p id={{doc_id}}>Document {{ doc_id }}</p><br/> -->
+
+</body>
+</html>

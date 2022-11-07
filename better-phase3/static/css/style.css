@@ -1,0 +1,193 @@
+.container-fluid {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 48em;
+}
+
+.container-small {
+    margin-left: 50;
+    margin-right: 50;
+    max-width: 24em;
+}
+
+.container-medium {
+    margin-left: 100;
+    margin-right: 20;
+    max-width: 48em
+}
+
+.small {
+    height: 40px;
+    overflow:hidden;
+}
+.big {
+
+}
+
+.left{ float: left; width: 33.333%; margin-left: 5px;}
+.right{ float: right; width: 33.333%; margin-right: 0; margin-left: 400}
+.middle{ display: inline-block; width: 33.333%; }
+
+.btn-plain {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    vertical-align: baseline;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 0px solid #ddd;
+}
+  
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+/* width */        
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+  
+.scroll {
+    float: right;
+    display: block;
+    border: 5px solid rgb(0, 0, 0);
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-right: 50px;
+    width: 50%;
+    height: 700px;
+    overflow-y: scroll;
+}
+
+button.keyword { background:none; border:none; color: blue;}
+
+.tooltip {
+    display: inline-block;
+    color: #444;
+  }
+  
+.tooltip .tooltiptext {
+    visibility: visible;
+    width: 120px;
+    background-color: rgb(158, 155, 155);
+    color: rgb(3, 3, 3);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+  
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    background-color: rgb(255, 255, 255);
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: rgb(255, 255, 255);
+  }
+  
+  /* Style the collapsible content. Note: hidden by default */
+  .content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+  .button2 {background-color: #ffffff;}
+
+  /* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* The actual popup */
+  .popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }

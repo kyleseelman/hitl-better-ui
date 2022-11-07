@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>BETTER HITL</title>
+</head>
+<body>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <div class="container-fluid">
+        <h1> {{ req_id }} Document {{ doc_id }}</h1>
+        <hr/>
+        <form id="formid">
+            {% for sent_id, task_label, req_label, text in annotations %}
+                <div style="line-height: 2"> {{text|safe}} </div>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="task_{{sent_id}}" {{task_label|safe}}> Task
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="req_{{sent_id}}" {{req_label|safe}}> Request
+                </label>
+                <br/>
+                <br/>
+            {% endfor %}
+            <br/>
+            <button type="button" id="save_sub" class="btn btn-primary">Save</button>
+            <button type="button" id="test" class="btn btn-secondary">Back</button>
+        </form>
+    </div>
+</body>
+</html>
